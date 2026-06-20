@@ -26,7 +26,6 @@ Each project folder includes source code, supporting documents, data used for th
 Two large files are intentionally excluded from GitHub:
 
 - `glove.6B.50d.txt`, the Stanford GloVe embedding file used in Project 1.
-- `facebook-db.sqlite`, a generated SQLite database output from Project 3.
 
 These files can be regenerated or downloaded using the project code. They are excluded because GitHub blocks normal uploads of files larger than 100MB.
 
