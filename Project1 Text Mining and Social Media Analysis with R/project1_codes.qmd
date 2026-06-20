@@ -1,0 +1,591 @@
+---
+title: "Project 1: Text Mining and Social Media Analysis with R"
+subtitle: "LSE MY472 Data for Data Scientists Portfolio"
+author: "Zhao Zhanyu"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Project overview
+
+This project demonstrates how different forms of text data can be extracted, cleaned, structured, and analysed using R. Following the original MY472 Week 9 workflow, I worked with three main types of text sources: a long-form PDF document, an image-based scanned PDF, and a Twitter JSON dataset.
+
+The project is designed as a digital communication analysis portfolio. It shows how computational text analysis can support media monitoring, political communication research, social media analysis, and data-informed content strategy.
+
+## Research objective
+
+The objective of this project is to turn unstructured text from documents and social media into analysable data. Specifically, the project asks:
+
+> How can R be used to extract, clean, quantify, and interpret text from PDF documents, OCR-based images, and social media posts?
+
+## Data sources
+
+| Data file | Type | Role in this project |
+|---|---|---|
+| `principia.pdf` | Long-form PDF text | Used for PDF text extraction, corpus construction, tokenisation, stopword removal, stemming, and document-feature matrix construction. |
+| `general_theory_cover.pdf` | Image-based scanned PDF | Used for OCR-based text extraction and conversion into a corpus and DFM. |
+| `trump-tweets.json` | Twitter JSON data | Used for social media text analysis, timestamp cleaning, tokenisation, n-gram detection, DFM construction, top-feature analysis, and wordcloud visualisation. |
+| `glove.6B.50d.txt` | Pre-trained word embeddings | Downloaded from the Stanford GloVe dataset and used to explore semantic similarity and word analogies. |
+
+## Methods summary
+
+This project uses the following methods:
+
+- PDF text extraction with `pdftools`
+- OCR text extraction from image-based PDFs
+- Corpus construction with `quanteda`
+- Tokenisation, stopword removal, stemming, and DFM construction
+- Twitter JSON parsing with `streamR`
+- Date-time cleaning with `lubridate`
+- Regular expression-based text cleaning with `stringr`
+- N-gram and collocation detection with `quanteda.textstats`
+- Word frequency analysis and wordcloud visualisation
+- Pre-trained GloVe word embeddings and cosine similarity analysis
+
+## Outputs produced
+
+The code below produces the following outputs in `outputs/project1-text-mining/`:
+
+- `principia_dfm.rds`
+- `principia_top_features.csv`
+- `general_theory_ocr_text.txt`
+- `general_theory_dfm.rds`
+- `general_theory_top_features.csv`
+- `tweets_cleaned.csv`
+- `tweet_dfm.rds`
+- `tweet_collocations_2gram.csv`
+- `tweet_collocations_3gram.csv`
+- `tweet_collocations_4gram.csv`
+- `tweet_top_features.csv`
+- `tweet_wordcloud.png`
+- `tweet_top20_bar_chart.png`
+- `embedding_similar_words.csv`
+- `embedding_analogies.csv`
+
+## Communication relevance
+
+For public relations, media, and communications work, this project demonstrates how text and social media data can be transformed into evidence for content strategy. The workflow can be adapted for media monitoring, social listening, public opinion research, campaign message analysis, and audience insight work.
+
+---
+
+# Method source code
+
+## 0. Set up directory, packages, and output folder
+
+```{r setup}
+current_file <- knitr::current_input()
+wdir <- if (!is.null(current_file)) dirname(normalizePath(current_file)) else getwd()
+ddir <- file.path(wdir, "data")
+outdir <- file.path(wdir, "outputs", "project1-text-mining")
+
+if(!dir.exists(outdir)){
+  dir.create(outdir, recursive = TRUE)
+}
+
+
+if(!dir.exists(wdir)) stop("Working directory does not exist. Please check wdir.")
+if(!dir.exists(ddir)) stop("Data directory does not exist. Please check ddir.")
+
+required_packages <- c(
+  "tidyverse", "pdftools", "quanteda", "quanteda.textstats",
+  "quanteda.textplots", "streamR", "lubridate", "stringr",
+  "tesseract", "text2vec"
+)
+
+for(pkg in required_packages){
+  if(!requireNamespace(pkg, quietly = TRUE)){
+    install.packages(pkg)
+  }
+  library(pkg, character.only = TRUE)
+}
+```
+
+## 1. PDF text extraction: Newton's *Principia*
+
+```{r principia-pdf}
+
+principia <- pdf_text(file.path(ddir, "principia.pdf"))
+#原作业中确认正文从第 65 页开始，所以去掉前面的封面、介绍等内容
+principia_main <- principia[65:length(principia)]
+
+#把 PDF 文本转换成 quanteda corpus
+principia_corpus <- principia_main |>
+  corpus()
+
+#分词去掉标点符号和数字
+principia_tokens <- principia_corpus |>
+  tokens(
+    remove_punct = TRUE,
+    remove_symbols = TRUE,
+    remove_numbers = TRUE
+  )
+
+#去掉英文停用词然后 stemming
+principia_tokens <- principia_tokens |>
+  tokens_remove(stopwords("english")) |>
+  tokens_wordstem()
+
+#建立 Document-Feature Matrix，统一转成小写
+principia_dfm <- principia_tokens |>
+  dfm(tolower = TRUE)
+
+#查看 DFM 基本情况
+principia_dfm
+ndoc(principia_dfm)
+nfeat(principia_dfm)
+```
+
+### Output: save Principia DFM and top features
+
+```{r principia-output}
+saveRDS(principia_dfm, file.path(outdir, "principia_dfm.rds"))
+
+#输出最高频
+principia_top_features <- topfeatures(principia_dfm, n = 30) |>
+  enframe(name = "feature", value = "frequency")
+
+write_csv(principia_top_features, file.path(outdir, "principia_top_features.csv"))
+
+principia_top_features
+```
+
+## 2. OCR text extraction: Keynes *General Theory* cover
+
+```{r general-theory-ocr}
+#这里PDF是图片型文本，所以用 OCR 识别文字
+general_theory <- pdf_ocr_text(
+  pdf = file.path(ddir, "general_theory_cover.pdf"),
+  language = "eng",
+  dpi = 300
+)
+
+#查看 OCR 识别出来的文字
+cat(general_theory)
+
+
+general_theory_clean <- str_replace_all(general_theory, "[\r\n]", " ") |>
+  str_squish()
+
+#转换成 corpus
+general_theory_corpus <- general_theory_clean |>
+  corpus(docvars = data.frame(page = 1:length(general_theory_clean)))
+
+general_theory_corpus
+
+#建立 DFM
+general_theory_dfm <- general_theory_corpus |>
+  tokens(remove_punct = TRUE, remove_numbers = TRUE, remove_symbols = TRUE) |>
+  tokens_remove(stopwords("english")) |>
+  tokens_wordstem() |>
+  dfm(tolower = TRUE)
+
+general_theory_dfm
+```
+
+### Output: save OCR text and OCR DFM
+
+```{r general-theory-output}
+write_file(general_theory_clean, file.path(outdir, "general_theory_ocr_text.txt"))
+
+#保存 DFM
+saveRDS(general_theory_dfm, file.path(outdir, "general_theory_dfm.rds"))
+
+#输出最高频
+general_theory_top_features <- topfeatures(general_theory_dfm, n = 30) |>
+  enframe(name = "feature", value = "frequency")
+
+write_csv(general_theory_top_features, file.path(outdir, "general_theory_top_features.csv"))
+
+general_theory_top_features
+```
+
+## 3. Social media text analysis: Trump tweets
+
+```{r tweets-read-clean}
+lfile <- file.path(ddir, "trump-tweets.json")
+
+tweets <- parseTweets(lfile) |>
+  tibble()
+
+#有些 parseTweets 版本会生成 text，有些数据里原字段叫 full_text；这里做一个兼容处理
+if(!"text" %in% names(tweets) && "full_text" %in% names(tweets)){
+  tweets <- tweets |>
+    rename(text = full_text)
+}
+
+#清理 created_at 时间格式，并转换成 datetime
+tweets <- tweets |>
+  mutate(created_at = str_replace(
+    created_at,
+    "^[A-z]+ ([A-z]+) ([0-9]+) ([^ ]+) .+?([0-9]+)$",
+    "\\1 \\2 \\4 \\3"
+  )) |>
+  mutate(created_at = mdy_hms(created_at))
+
+head(tweets)
+```
+
+```{r tweets-same-time-and-filter}
+#检查是否有多条 tweets 在同一时间发布
+duplicate_time_summary <- tweets |>
+  count(created_at) |>
+  arrange(desc(n)) |>
+  filter(n > 1) |>
+  summarise(number_of_duplicate_time_tweets = sum(n))
+
+duplicate_time_summary
+#按发布时间和文本排序
+tweets <- tweets |>
+  arrange(created_at, text)
+
+#筛选 Trump 成为总统之后的 tweets
+tweets_post_2017 <- tweets |>
+  filter(created_at >= ymd_hm("2017-01-20 17:00"))
+
+head(tweets_post_2017)
+```
+
+## 4. Manual tokenisation example
+
+```{r manual-tokenisation}
+#用2017-01-20 17:55 之后第一条 tweet作为手动分词例子
+tw1 <- tweets_post_2017 |>
+  filter(created_at >= ymd_hm("2017-01-20 17:55")) |>
+  filter(row_number() == 1) |>
+  select(text)
+
+tw1 <- tw1$text
+cat(tw1)
+
+#用空白字符手动分词
+tok <- tw1 |>
+  str_split("\\s+") %>%
+  .[[1]]
+
+print(tok)
+length(tok)
+
+#替换 emoji，使它变成可读 placeholder
+tok <- tok |>
+  str_replace_all("[#]MAGA.+", "#MAGA<us flag emoji>")
+
+print(tok)
+
+#清理大小写 HTML symbol 标点等
+tok <- tok |>
+  str_to_lower() |>
+  str_replace_all("^&#?[a-z]+;$", " ") |>
+  str_replace_all("[^A-z#<> ]", "") |>
+  str_squish() %>%
+  .[.!=""]
+
+print(tok)
+
+#加载英文 stopwords
+engsw <- stopwords("english")
+
+#去掉 stopwords
+tok <- tok[!tok %in% engsw]
+print(tok)
+
+#stemming
+tok <- tok |>
+  list() |>
+  tokens() |>
+  tokens_wordstem() %>%
+  .[["text1"]]
+
+print(tok)
+length(tok)
+```
+
+## 5. Build DFM for all tweets
+
+```{r tweets-dfm}
+#创建唯一 document ID
+tweets_for_dfm <- tweets_post_2017 |>
+  group_by(created_at) |>
+  mutate(doc_id = paste0(created_at, " [", row_number(), "]")) |>
+  ungroup() |>
+  select(doc_id, text)
+
+print(tweets_for_dfm)
+
+#先检查常见 bigrams、trigrams 和 4-grams
+collocations_2 <- tweets_for_dfm |>
+  corpus(text_field = "text") |>
+  textstat_collocations(size = 2)
+
+collocations_3 <- tweets_for_dfm |>
+  corpus(text_field = "text") |>
+  textstat_collocations(size = 3)
+
+collocations_4 <- tweets_for_dfm |>
+  corpus(text_field = "text") |>
+  textstat_collocations(size = 4)
+
+head(collocations_2)
+head(collocations_3)
+head(collocations_4)
+
+#手动保留重要词组，让它们在分词时保持在一起
+tweets_for_dfm$text <- str_replace_all(
+  tweets_for_dfm$text,
+  "[Nn]orth\\s[kK]orea",
+  "North_Korea"
+)
+tweets_for_dfm$text <- str_replace_all(
+  tweets_for_dfm$text,
+  "[Uu]nited\\s[Ss]tates\\s[Ss]upreme\\s[Cc]ourt",
+  "United_States_Supreme_Court"
+)
+
+# 建立 tweet-level DFM
+tweet_dfm <- tweets_for_dfm |>
+  corpus(text_field = "text") |>
+  tokens(
+    what = "word",
+    remove_punct = TRUE,
+    remove_symbols = TRUE,
+    remove_numbers = TRUE,
+    remove_url = TRUE,
+    remove_separators = TRUE,
+    split_hyphens = FALSE,
+    split_tags = FALSE,
+    include_docvars = TRUE,
+    padding = FALSE,
+    concatenator = "_",
+    verbose = quanteda_options("verbose")
+  ) |>
+  tokens_remove(engsw) |>
+  tokens_wordstem() |>
+  dfm(
+    tolower = TRUE,
+    remove_padding = FALSE,
+    verbose = quanteda_options("verbose")
+  )
+
+#查看 DFM 的 documents 和 vocabulary 大小
+nrow(tweet_dfm)
+ncol(tweet_dfm)
+#删除过低频的 features小于等于三
+tweet_dfm <- tweet_dfm |>
+  dfm_trim(min_termfreq = 3, min_docfreq = 3)
+
+#查看最高频 features
+tweet_top_features <- tweet_dfm |>
+  topfeatures(n = 50) |>
+  enframe(name = "feature", value = "frequency")
+
+tweet_top_features
+```
+
+### Output: save tweet data, DFM, collocations, and top features
+
+```{r tweets-output}
+write_csv(tweets_for_dfm, file.path(outdir, "tweets_cleaned.csv"))
+
+#保存 DFM
+saveRDS(tweet_dfm, file.path(outdir, "tweet_dfm.rds"))
+
+#保存 collocations
+write_csv(collocations_2, file.path(outdir, "tweet_collocations_2gram.csv"))
+write_csv(collocations_3, file.path(outdir, "tweet_collocations_3gram.csv"))
+write_csv(collocations_4, file.path(outdir, "tweet_collocations_4gram.csv"))
+
+#保存 top features
+write_csv(tweet_top_features, file.path(outdir, "tweet_top_features.csv"))
+```
+
+### Output: wordcloud and bar chart
+
+```{r tweet-wordcloud-and-chart}
+png(
+  filename = file.path(outdir, "tweet_wordcloud.png"),
+  width = 1200,
+  height = 900,
+  res = 150
+)
+textplot_wordcloud(tweet_dfm, max_words = 100)
+dev.off()
+
+tweet_top20 <- tweet_top_features |>
+  slice_max(order_by = frequency, n = 20) |>
+  mutate(feature = reorder(feature, frequency))
+
+tweet_top20_plot <- ggplot(tweet_top20, aes(x = feature, y = frequency)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Top 20 Features in Trump Tweets After January 2017",
+    x = "Feature",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+
+tweet_top20_plot
+
+ggsave(
+  filename = file.path(outdir, "tweet_top20_bar_chart.png"),
+  plot = tweet_top20_plot,
+  width = 8,
+  height = 6
+)
+```
+
+## 6. Pre-trained GloVe word embeddings
+
+```{r glove-download-load}
+# 下载并读取 GloVe 50-dimensional word vectors
+# 文件较大，如果 R 里下载失败，可以手动复制链接到浏览器下载，再放进 data 文件夹
+url <- "https://nlp.stanford.edu/data/glove.6B.zip"
+glove_zip_path <- file.path(ddir, basename(url))
+
+```
+# If the download times out, delete the incomplete glove.6B.zip file from the data folder and download it again.
+#然后去浏览器下载，之后把文件放入data文件夹中
+```{r}
+
+url <- "https://nlp.stanford.edu/data/glove.6B.zip"
+glove_zip_path <- file.path(ddir, "glove.6B.zip")
+glove_50d_path <- file.path(ddir, "glove.6B.50d.txt")
+
+#如果之前下载失败，可能会留下一个不完整的 zip 文件,这里自动删除不完整文件
+if(file.exists(glove_zip_path) && file.info(glove_zip_path)$size < 800 * 1024^2){
+  message("Existing glove.6B.zip looks incomplete. Deleting the partial file.")
+  unlink(glove_zip_path)
+}
+
+#如果 data 文件夹里还没有 50d txt，就尝试从 zip 解压；如果 zip 也没有，再尝试下载
+if(!file.exists(glove_50d_path)){
+  if(!file.exists(glove_zip_path)){
+    message("glove.6B.zip not found in data folder. Trying to download it. If this fails, download it manually with a browser.")
+    options(timeout = 1800)
+    tryCatch(
+      download.file(url, glove_zip_path, mode = "wb", method = "libcurl"),
+      error = function(e){
+        stop(
+          "GloVe download failed. Please download glove.6B.zip manually from https://nlp.stanford.edu/data/glove.6B.zip, place it in the data folder, and rerun this section."
+        )
+      }
+    )
+  }
+  
+  unzip(glove_zip_path, files = "glove.6B.50d.txt", exdir = ddir)
+}
+
+# 读取 50d embeddings
+embeddings <- read_file(glove_50d_path)
+
+emat <- lapply(
+  str_split(embeddings, "\n")[[1]],
+  function(x) as.numeric(strsplit(x, " ")[[1]][2:51])
+)
+
+emat <- do.call(rbind, emat)
+
+words <- unlist(lapply(
+  str_split(embeddings, "\n")[[1]],
+  function(x) strsplit(x, " ")[[1]][1]
+))
+
+row.names(emat) <- words
+rm(words)
+```
+
+```{r glove-functions}
+find_similar <- function(word_or_vec, embeddings, n = 5) {
+  if(is.character(word_or_vec)){
+    sims <- sim2(
+      embeddings,
+      embeddings[word_or_vec, , drop = FALSE],
+      method = "cosine"
+    )
+  } else if(is.numeric(word_or_vec) & length(word_or_vec) == 50){
+    sims <- sim2(
+      embeddings,
+      t(as.matrix(word_or_vec)),
+      method = "cosine"
+    )
+  } else {
+    stop("Input must be a word or a 50-dimensional numeric vector.")
+  }
+  sort(sims[, 1], decreasing = TRUE)[2:(n + 1)]
+}
+
+#定义 analogy 函数
+analogy <- function(a, b, c, embeddings){
+  vec_a <- embeddings[a, ]
+  vec_b <- embeddings[b, ]
+  vec_c <- embeddings[c, ]
+  return(vec_a - vec_b + vec_c)
+}
+```
+
+```{r glove-output}
+# 找相似词
+similar_cat <- find_similar("cat", emat) |>
+  enframe(name = "word", value = "cosine_similarity") |>
+  mutate(query = "cat")
+
+similar_president <- find_similar("president", emat) |>
+  enframe(name = "word", value = "cosine_similarity") |>
+  mutate(query = "president")
+
+similar_piano <- find_similar("piano", emat) |>
+  enframe(name = "word", value = "cosine_similarity") |>
+  mutate(query = "piano")
+
+embedding_similar_words <- bind_rows(
+  similar_cat,
+  similar_president,
+  similar_piano
+) |>
+  select(query, word, cosine_similarity)
+
+embedding_similar_words
+
+write_csv(embedding_similar_words, file.path(outdir, "embedding_similar_words.csv"))
+
+#analogy examples
+analogy_king <- find_similar(analogy("king", "man", "woman", emat), emat) |>
+  enframe(name = "word", value = "cosine_similarity") |>
+  mutate(query = "king - man + woman")
+
+analogy_peru <- find_similar(analogy("peru", "france", "paris", emat), emat) |>
+  enframe(name = "word", value = "cosine_similarity") |>
+  mutate(query = "peru - france + paris")
+
+analogy_italy <- find_similar(analogy("italy", "spain", "paella", emat), emat) |>
+  enframe(name = "word", value = "cosine_similarity") |>
+  mutate(query = "italy - spain + paella")
+
+analogy_sleep <- find_similar(analogy("sleep", "walk", "walked", emat), emat) |>
+  enframe(name = "word", value = "cosine_similarity") |>
+  mutate(query = "sleep - walk + walked")
+
+embedding_analogies <- bind_rows(
+  analogy_king,
+  analogy_peru,
+  analogy_italy,
+  analogy_sleep
+) |>
+  select(query, word, cosine_similarity)
+
+embedding_analogies
+
+write_csv(embedding_analogies, file.path(outdir, "embedding_analogies.csv"))
+```
+
+## Portfolio reflection
+
+This project shows that text analysis is not only about counting words. It involves the full workflow of extracting text from different formats, cleaning the data, deciding how to represent language quantitatively, and then using outputs such as DFMs, collocations, word frequencies, wordclouds, and word embeddings to identify communication patterns.
+
+For media and communications work, this workflow can be adapted to analyse campaign messages, political speeches, social media posts, press releases, news articles, and audience discussions.

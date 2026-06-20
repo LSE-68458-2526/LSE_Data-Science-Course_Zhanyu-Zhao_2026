@@ -1,0 +1,3 @@
+Name: John Smith
+Bank account number: 99999999
+Account balance: £1,231.08

@@ -1,0 +1,21 @@
+query,word,cosine_similarity
+king - man + woman,queen,0.8609581258578942
+king - man + woman,daughter,0.7684511800895474
+king - man + woman,prince,0.7640699591354717
+king - man + woman,throne,0.7634970756412145
+king - man + woman,princess,0.751272844742692
+peru - france + paris,buenos,0.8448377543409682
+peru - france + paris,lima,0.8058231564821359
+peru - france + paris,manila,0.7891982640355595
+peru - france + paris,janeiro,0.7478552900215154
+peru - france + paris,peru,0.7419081097204762
+italy - spain + paella,lasagna,0.6944318961187086
+italy - spain + paella,risotto,0.6939866738634406
+italy - spain + paella,lasagne,0.6808277255762208
+italy - spain + paella,gnocchi,0.6732840488163567
+italy - spain + paella,ravioli,0.673058918976056
+sleep - walk + walked,slept,0.7521586203502111
+sleep - walk + walked,asleep,0.7453374249175264
+sleep - walk + walked,crying,0.7355220011939626
+sleep - walk + walked,woke,0.721429742064867
+sleep - walk + walked,fainted,0.7197133185358774

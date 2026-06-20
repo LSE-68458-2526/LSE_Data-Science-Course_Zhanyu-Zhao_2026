@@ -1,0 +1,651 @@
+ons_id,constituency_name,party_name,party_abbr,votes,share
+E14001063,Aldershot,Labour,Lab,19764,0.407136
+E14001064,Aldridge-Brownhills,Conservative,Con,15901,0.388663
+E14001065,Altrincham and Sale West,Labour,Lab,20798,0.404221
+E14001066,Amber Valley,Labour,Lab,15746,0.370224
+E14001067,Arundel and South Downs,Conservative,Con,22001,0.401918
+E14001068,Ashfield,Reform UK,RUK,17062,0.427812
+E14001069,Ashford,Labour,Lab,15262,0.324896
+E14001070,Ashton-under-Lyne,Labour,Lab,15575,0.439215
+E14001071,Aylesbury,Labour,Lab,15081,0.301982
+E14001072,Banbury,Labour,Lab,18468,0.383328
+E14001073,Barking,Labour,Lab,16227,0.444856
+E14001074,Barnsley North,Labour,Lab,18610,0.504418
+E14001075,Barnsley South,Labour,Lab,16399,0.467448
+E14001076,Barrow and Furness,Labour,Lab,18537,0.439047
+E14001077,Basildon and Billericay,Conservative,Con,12905,0.306357
+E14001078,Basingstoke,Labour,Lab,20922,0.427075
+E14001079,Bassetlaw,Labour,Lab,18476,0.411694
+E14001080,Bath,Liberal Democrat,LD,19883,0.41311
+E14001081,Battersea,Labour,Lab,22983,0.488148
+E14001082,Beaconsfield,Conservative,Con,18494,0.387504
+E14001083,Beckenham and Penge,Labour,Lab,25753,0.493145
+E14001084,Bedford,Labour,Lab,18342,0.451118
+E14001085,Bermondsey and Old Southwark,Labour,Lab,16857,0.448289
+E14001086,Bethnal Green and Stepney,Labour,Lab,15896,0.340772
+E14001087,Beverley and Holderness,Conservative,Con,15501,0.345257
+E14001088,Bexhill and Battle,Conservative,Con,16186,0.338974
+E14001089,Bexleyheath and Crayford,Labour,Lab,15717,0.361635
+E14001090,Bicester and Woodstock,Liberal Democrat,LD,19419,0.386686
+E14001091,Birkenhead,Labour,Lab,22468,0.520888
+E14001092,Birmingham Edgbaston,Labour and Co-operative,Lab,16599,0.443492
+E14001093,Birmingham Erdington,Labour,Lab,14774,0.432786
+E14001094,Birmingham Hall Green and Moseley,Labour,Lab,12798,0.3076
+E14001095,Birmingham Hodge Hill and Solihull North,Labour,Lab,10655,0.312134
+E14001096,Birmingham Ladywood,Labour,Lab,15558,0.425326
+E14001097,Birmingham Northfield,Labour,Lab,14929,0.3965
+E14001098,Birmingham Perry Barr,Independent,Ind,13303,0.354974
+E14001099,Birmingham Selly Oak,Labour,Lab,17371,0.452099
+E14001100,Birmingham Yardley,Labour,Lab,11275,0.311947
+E14001101,Bishop Auckland,Labour,Lab,17036,0.421402
+E14001102,Blackburn,Independent,Ind,10518,0.270476
+E14001103,Blackley and Middleton South,Labour,Lab,16864,0.538098
+E14001104,Blackpool North and Fleetwood,Labour,Lab,16744,0.400478
+E14001105,Blackpool South,Labour,Lab,16916,0.480841
+E14001106,Blaydon and Consett,Labour,Lab,21160,0.501232
+E14001107,Blyth and Ashington,Labour,Lab,20030,0.49578
+E14001108,Bognor Regis and Littlehampton,Conservative,Con,15678,0.327806
+E14001109,Bolsover,Labour,Lab,17197,0.405265
+E14001110,Bolton North East,Labour,Lab,16166,0.372841
+E14001111,Bolton South and Walkden,Labour,Lab,15093,0.408692
+E14001112,Bolton West,Labour,Lab,17363,0.389322
+E14001113,Bootle,Labour,Lab,26729,0.687474
+E14001114,Boston and Skegness,Reform UK,RUK,15520,0.383636
+E14001115,Bournemouth East,Labour,Lab,18316,0.407838
+E14001116,Bournemouth West,Labour,Lab,14365,0.364427
+E14001117,Bracknell,Labour,Lab,14783,0.337227
+E14001118,Bradford East,Labour,Lab,14098,0.378816
+E14001119,Bradford South,Labour,Lab,11833,0.35812
+E14001120,Bradford West,Labour,Lab,11724,0.316173
+E14001121,Braintree,Conservative,Con,17414,0.355185
+E14001122,Brent East,Labour,Lab,19370,0.512407
+E14001123,Brent West,Labour,Lab,17258,0.417102
+E14001124,Brentford and Isleworth,Labour,Lab,20007,0.442105
+E14001125,Brentwood and Ongar,Conservative,Con,17731,0.366858
+E14001126,Bridgwater,Conservative,Con,12281,0.306038
+E14001127,Bridlington and The Wolds,Conservative,Con,14846,0.345762
+E14001128,Brigg and Immingham,Conservative,Con,15905,0.374165
+E14001129,Brighton Kemptown and Peacehaven,Labour,Lab,17893,0.439783
+E14001130,Brighton Pavilion,Green,Green,28809,0.550179
+E14001131,Bristol Central,Green,Green,24539,0.565871
+E14001132,Bristol East,Labour,Lab,20748,0.449977
+E14001133,Bristol North East,Labour,Lab,19004,0.452595
+E14001134,Bristol North West,Labour,Lab,24058,0.49641
+E14001135,Bristol South,Labour,Lab,18521,0.426722
+E14001136,Broadland and Fakenham,Conservative,Con,16322,0.329651
+E14001137,Bromley and Biggin Hill,Conservative,Con,15929,0.340451
+E14001138,Bromsgrove,Conservative,Con,16533,0.328003
+E14001139,Broxbourne,Conservative,Con,15810,0.368085
+E14001140,Broxtowe,Labour,Lab,19561,0.408901
+E14001141,Buckingham and Bletchley,Labour,Lab,17602,0.369472
+E14001142,Burnley,Labour and Co-operative,Lab,12598,0.317178
+E14001143,Burton and Uttoxeter,Labour,Lab,16222,0.355535
+E14001144,Bury North,Labour,Lab,19625,0.431129
+E14001145,Bury South,Labour,Lab,19247,0.455939
+E14001146,Bury St Edmunds and Stowmarket,Labour,Lab,16745,0.329024
+E14001147,Calder Valley,Labour,Lab,22046,0.444404
+E14001148,Camborne and Redruth,Labour,Lab,19360,0.405148
+E14001149,Cambridge,Labour,Lab,19614,0.465891
+E14001150,Cannock Chase,Labour,Lab,15671,0.364841
+E14001151,Canterbury,Labour,Lab,19531,0.413521
+E14001152,Carlisle,Labour,Lab,18129,0.394289
+E14001153,Carshalton and Wallington,Liberal Democrat,LD,20126,0.431241
+E14001154,Castle Point,Conservative,Con,15485,0.381094
+E14001155,Central Devon,Conservative,Con,16831,0.314999
+E14001156,Central Suffolk and North Ipswich,Conservative,Con,15144,0.326218
+E14001157,Chatham and Aylesford,Labour,Lab,13689,0.335145
+E14001158,Cheadle,Liberal Democrat,LD,23681,0.466795
+E14001159,Chelmsford,Liberal Democrat,LD,20214,0.398572
+E14001160,Chelsea and Fulham,Labour,Lab,18556,0.393836
+E14001161,Cheltenham,Liberal Democrat,LD,25076,0.506156
+E14001162,Chesham and Amersham,Liberal Democrat,LD,24422,0.44848
+E14001163,Chester North and Neston,Labour,Lab,22258,0.498009
+E14001164,Chester South and Eddisbury,Conservative,Con,19905,0.379244
+E14001165,Chesterfield,Labour,Lab,19316,0.46483
+E14001166,Chichester,Liberal Democrat,LD,25540,0.491655
+E14001167,Chingford and Woodford Green,Conservative,Con,17281,0.356221
+E14001168,Chippenham,Liberal Democrat,LD,22552,0.455486
+E14001169,Chipping Barnet,Labour,Lab,21585,0.424409
+E14001170,Chorley,Speaker,Spk,25238,0.743081
+E14001171,Christchurch,Conservative,Con,16941,0.357896
+E14001172,Cities of London and Westminster,Labour and Co-operative,Lab,15302,0.390208
+E14001173,City of Durham,Labour,Lab,19131,0.470894
+E14001174,Clacton,Reform UK,RUK,21225,0.461835
+E14001175,Clapham and Brixton Hill,Labour,Lab,24166,0.565406
+E14001176,Colchester,Labour,Lab,18804,0.418769
+E14001177,Colne Valley,Labour,Lab,18970,0.41042
+E14001178,Congleton,Labour,Lab,18875,0.376559
+E14001179,Corby and East Northamptonshire,Labour,Lab,21020,0.423884
+E14001180,Coventry East,Labour,Lab,18308,0.494624
+E14001181,Coventry North West,Labour,Lab,19696,0.468618
+E14001182,Coventry South,Labour,Lab,20361,0.476492
+E14001183,Cramlington and Killingworth,Labour and Co-operative,Lab,22274,0.490682
+E14001184,Crawley,Labour,Lab,17453,0.382389
+E14001185,Crewe and Nantwich,Labour,Lab,20837,0.44149
+E14001186,Croydon East,Labour,Lab,18541,0.423514
+E14001187,Croydon South,Conservative,Con,19757,0.400117
+E14001188,Croydon West,Labour,Lab,20612,0.540685
+E14001189,Dagenham and Rainham,Labour,Lab,16571,0.426351
+E14001190,Darlington,Labour,Lab,16621,0.392208
+E14001191,Dartford,Labour,Lab,15392,0.345981
+E14001192,Daventry,Conservative,Con,17872,0.336687
+E14001193,Derby North,Labour,Lab,18619,0.455021
+E14001194,Derby South,Labour and Co-operative,Lab,14503,0.387791
+E14001195,Derbyshire Dales,Labour,Lab,17759,0.346368
+E14001196,Dewsbury and Batley,Independent,Ind,15641,0.410848
+E14001197,Didcot and Wantage,Liberal Democrat,LD,21793,0.398169
+E14001198,Doncaster Central,Labour and Co-operative,Lab,17515,0.461601
+E14001199,Doncaster East and the Isle of Axholme,Labour,Lab,15122,0.386436
+E14001200,Doncaster North,Labour,Lab,16231,0.523547
+E14001201,Dorking and Horley,Liberal Democrat,LD,20921,0.418713
+E14001202,Dover and Deal,Labour,Lab,18940,0.396442
+E14001203,Droitwich and Evesham,Conservative,Con,19975,0.402649
+E14001204,Dudley,Labour,Lab,12215,0.341239
+E14001205,Dulwich and West Norwood,Labour,Lab,27356,0.602847
+E14001206,Dunstable and Leighton Buzzard,Labour,Lab,14976,0.325247
+E14001207,Ealing Central and Acton,Labour,Lab,22340,0.467667
+E14001208,Ealing North,Labour and Co-operative,Lab,20663,0.477956
+E14001209,Ealing Southall,Labour,Lab,23000,0.491285
+E14001210,Earley and Woodley,Labour,Lab,18209,0.396589
+E14001211,Easington,Labour,Lab,16774,0.488696
+E14001212,East Grinstead and Uckfield,Conservative,Con,19319,0.383367
+E14001213,East Ham,Labour,Lab,19570,0.516468
+E14001214,East Hampshire,Conservative,Con,18509,0.370136
+E14001215,East Surrey,Conservative,Con,17502,0.355761
+E14001216,East Thanet,Labour,Lab,17054,0.39927
+E14001217,East Wiltshire,Conservative,Con,16849,0.357023
+E14001218,East Worthing and Shoreham,Labour,Lab,22120,0.450711
+E14001219,Eastbourne,Liberal Democrat,LD,23742,0.520601
+E14001220,Eastleigh,Liberal Democrat,LD,15970,0.344033
+E14001221,Edmonton and Winchmore Hill,Labour and Co-operative,Lab,20520,0.499939
+E14001222,Ellesmere Port and Bromborough,Labour,Lab,24186,0.576351
+E14001223,Eltham and Chislehurst,Labour,Lab,20069,0.440438
+E14001224,Ely and East Cambridgeshire,Liberal Democrat,LD,17127,0.327045
+E14001225,Enfield North,Labour,Lab,21368,0.491309
+E14001226,Epping Forest,Conservative,Con,18038,0.432017
+E14001227,Epsom and Ewell,Liberal Democrat,LD,20674,0.379166
+E14001228,Erewash,Labour,Lab,17224,0.400502
+E14001229,Erith and Thamesmead,Labour,Lab,22246,0.55093
+E14001230,Esher and Walton,Liberal Democrat,LD,28315,0.52552
+E14001231,Exeter,Labour,Lab,18225,0.453415
+E14001232,Exmouth and Exeter East,Conservative,Con,14728,0.287006
+E14001233,Fareham and Waterlooville,Conservative,Con,17561,0.350358
+E14001234,Farnham and Bordon,Conservative,Con,18951,0.357465
+E14001235,Faversham and Mid Kent,Conservative,Con,14816,0.317981
+E14001236,Feltham and Heston,Labour and Co-operative,Lab,16139,0.415023
+E14001237,Filton and Bradley Stoke,Labour,Lab,22905,0.454762
+E14001238,Finchley and Golders Green,Labour,Lab,21857,0.443446
+E14001239,Folkestone and Hythe,Labour,Lab,15020,0.347315
+E14001240,Forest of Dean,Labour,Lab,16373,0.340459
+E14001241,Frome and East Somerset,Liberal Democrat,LD,16580,0.354911
+E14001242,Fylde,Conservative,Con,15917,0.331881
+E14001243,Gainsborough,Conservative,Con,16636,0.356346
+E14001244,Gateshead Central and Whickham,Labour,Lab,18245,0.453664
+E14001245,Gedling,Labour,Lab,23278,0.477772
+E14001246,Gillingham and Rainham,Labour,Lab,15562,0.378269
+E14001247,Glastonbury and Somerton,Liberal Democrat,LD,20364,0.427438
+E14001248,Gloucester,Labour,Lab,16472,0.360501
+E14001249,Godalming and Ash,Conservative,Con,23293,0.425863
+E14001250,Goole and Pocklington,Conservative,Con,18981,0.381589
+E14001251,Gorton and Denton,Labour and Co-operative,Lab,18555,0.507522
+E14001252,Gosport,Conservative,Con,17830,0.402692
+E14001253,Grantham and Bourne,Conservative,Con,16770,0.363577
+E14001254,Gravesham,Labour,Lab,16623,0.384507
+E14001255,Great Grimsby and Cleethorpes,Labour,Lab,15336,0.418799
+E14001256,Great Yarmouth,Reform UK,RUK,14385,0.353023
+E14001257,Greenwich and Woolwich,Labour,Lab,23999,0.561787
+E14001258,Guildford,Liberal Democrat,LD,22937,0.474945
+E14001259,Hackney North and Stoke Newington,Labour,Lab,24355,0.594619
+E14001260,Hackney South and Shoreditch,Labour and Co-operative,Lab,24724,0.592887
+E14001261,Halesowen,Labour,Lab,15023,0.389419
+E14001262,Halifax,Labour and Co-operative,Lab,14135,0.351495
+E14001263,Hamble Valley,Conservative,Con,19671,0.364251
+E14001264,Hammersmith and Chiswick,Labour,Lab,24073,0.523087
+E14001265,Hampstead and Highgate,Labour,Lab,23432,0.482636
+E14001266,"Harborough, Oadby and Wigston",Conservative,Con,18614,0.369428
+E14001267,Harlow,Labour and Co-operative,Lab,16313,0.376248
+E14001268,Harpenden and Berkhamsted,Liberal Democrat,LD,27282,0.502098
+E14001269,Harrogate and Knaresborough,Liberal Democrat,LD,23976,0.46051
+E14001270,Harrow East,Conservative,Con,25466,0.533018
+E14001271,Harrow West,Labour and Co-operative,Lab,19833,0.438386
+E14001272,Hartlepool,Labour,Lab,16414,0.462223
+E14001273,Harwich and North Essex,Conservative,Con,16522,0.3439
+E14001274,Hastings and Rye,Labour and Co-operative,Lab,19134,0.416047
+E14001275,Havant,Conservative,Con,12986,0.307827
+E14001276,Hayes and Harlington,Labour,Lab,20405,0.532559
+E14001277,Hazel Grove,Liberal Democrat,LD,17328,0.376712
+E14001278,Hemel Hempstead,Labour,Lab,16844,0.381881
+E14001279,Hendon,Labour,Lab,15855,0.384308
+E14001280,Henley and Thame,Liberal Democrat,LD,23904,0.449687
+E14001281,Hereford and South Herefordshire,Conservative,Con,14871,0.326319
+E14001282,Herne Bay and Sandwich,Conservative,Con,17243,0.353145
+E14001283,Hertford and Stortford,Labour,Lab,20808,0.385269
+E14001284,Hertsmere,Conservative,Con,21451,0.446831
+E14001285,Hexham,Labour,Lab,23988,0.462839
+E14001286,Heywood and Middleton North,Labour,Lab,15069,0.405844
+E14001287,High Peak,Labour,Lab,22533,0.457932
+E14001288,Hinckley and Bosworth,Conservative,Con,17032,0.356325
+E14001289,Hitchin,Labour,Lab,23067,0.439288
+E14001290,Holborn and St Pancras,Labour,Lab,18884,0.489197
+E14001291,Honiton and Sidmouth,Liberal Democrat,LD,23007,0.45419
+E14001292,Hornchurch and Upminster,Conservative,Con,15260,0.325297
+E14001293,Hornsey and Friern Barnet,Labour,Lab,28535,0.586633
+E14001294,Horsham,Liberal Democrat,LD,21632,0.389773
+E14001295,Houghton and Sunderland South,Labour,Lab,18837,0.470549
+E14001296,Hove and Portslade,Labour,Lab,27209,0.524167
+E14001297,Huddersfield,Labour,Lab,15101,0.375974
+E14001298,Huntingdon,Conservative,Con,18257,0.350826
+E14001299,Hyndburn,Labour,Lab,12186,0.33502
+E14001300,Ilford North,Labour,Lab,15647,0.33371
+E14001301,Ilford South,Labour,Lab,16537,0.401676
+E14001302,Ipswich,Labour and Co-operative,Lab,19099,0.433369
+E14001303,Isle of Wight East,Conservative,Con,10427,0.305975
+E14001304,Isle of Wight West,Labour,Lab,13240,0.386118
+E14001305,Islington North,Independent,Ind,24120,0.492185
+E14001306,Islington South and Finsbury,Labour,Lab,22946,0.536698
+E14001307,Jarrow and Gateshead East,Labour,Lab,18856,0.513396
+E14001308,Keighley and Ilkley,Conservative,Con,18589,0.402481
+E14001309,Kenilworth and Southam,Conservative,Con,19395,0.363747
+E14001310,Kensington and Bayswater,Labour,Lab,17025,0.406247
+E14001311,Kettering,Labour,Lab,18009,0.358524
+E14001312,Kingston and Surbiton,Liberal Democrat,LD,25870,0.510619
+E14001313,Kingston upon Hull East,Labour,Lab,13047,0.437584
+E14001314,Kingston upon Hull North and Cottingham,Labour,Lab,18480,0.483415
+E14001315,Kingston upon Hull West and Haltemprice,Labour,Lab,17875,0.468202
+E14001316,Kingswinford and South Staffordshire,Conservative,Con,18199,0.402811
+E14001317,Knowsley,Labour,Lab,24243,0.672539
+E14001318,Lancaster and Wyre,Labour,Lab,19315,0.449102
+E14001319,Leeds Central and Headingley,Labour and Co-operative,Lab,15853,0.501757
+E14001320,Leeds East,Labour,Lab,18610,0.472479
+E14001321,Leeds North East,Labour,Lab,23260,0.514978
+E14001322,Leeds North West,Labour,Lab,22882,0.45969
+E14001323,Leeds South,Labour,Lab,17117,0.540343
+E14001324,Leeds South West and Morley,Labour,Lab,17681,0.439727
+E14001325,Leeds West and Pudsey,Labour,Lab,18976,0.49296
+E14001326,Leicester East,Conservative,Con,14526,0.310956
+E14001327,Leicester South,Independent,Ind,14739,0.352296
+E14001328,Leicester West,Labour,Lab,15798,0.446309
+E14001329,Leigh and Atherton,Labour and Co-operative,Lab,19971,0.485086
+E14001330,Lewes,Liberal Democrat,LD,26895,0.505802
+E14001331,Lewisham East,Labour,Lab,23646,0.581884
+E14001332,Lewisham North,Labour,Lab,25467,0.576607
+E14001333,Lewisham West and East Dulwich,Labour,Lab,27406,0.590468
+E14001334,Leyton and Wanstead,Labour,Lab,20755,0.474595
+E14001335,Lichfield,Labour,Lab,17232,0.350929
+E14001336,Lincoln,Labour,Lab,18470,0.438093
+E14001337,Liverpool Garston,Labour,Lab,24510,0.583669
+E14001338,Liverpool Riverside,Labour,Lab,20039,0.618851
+E14001339,Liverpool Walton,Labour,Lab,26032,0.705742
+E14001340,Liverpool Wavertree,Labour,Lab,23077,0.579606
+E14001341,Liverpool West Derby,Labour,Lab,25302,0.665737
+E14001342,Loughborough,Labour,Lab,17249,0.408173
+E14001343,Louth and Horncastle,Conservative,Con,17441,0.375245
+E14001344,Lowestoft,Labour,Lab,14464,0.34583
+E14001345,Luton North,Labour,Lab,14677,0.37881
+E14001346,Luton South and South Bedfordshire,Labour,Lab,13593,0.35415
+E14001347,Macclesfield,Labour,Lab,24672,0.467344
+E14001348,Maidenhead,Liberal Democrat,LD,21895,0.435037
+E14001349,Maidstone and Malling,Conservative,Con,14146,0.304943
+E14001350,Makerfield,Labour,Lab,18202,0.452078
+E14001351,Maldon,Conservative,Con,19374,0.388716
+E14001352,Manchester Central,Labour and Co-operative,Lab,20184,0.508093
+E14001353,Manchester Rusholme,Labour,Lab,15054,0.518513
+E14001354,Manchester Withington,Labour,Lab,22066,0.528768
+E14001355,Mansfield,Labour,Lab,16048,0.390586
+E14001356,Melksham and Devizes,Liberal Democrat,LD,20031,0.391208
+E14001357,Melton and Syston,Conservative,Con,17526,0.381116
+E14001358,Meriden and Solihull East,Conservative,Con,16792,0.381333
+E14001359,Mid Bedfordshire,Conservative,Con,16912,0.340823
+E14001360,Mid Buckinghamshire,Conservative,Con,20150,0.373487
+E14001361,Mid Cheshire,Labour,Lab,18457,0.444651
+E14001362,Mid Derbyshire,Labour,Lab,17346,0.364849
+E14001363,Mid Dorset and North Poole,Liberal Democrat,LD,21442,0.433049
+E14001364,Mid Leicestershire,Conservative,Con,17735,0.369095
+E14001365,Mid Norfolk,Conservative,Con,16770,0.365383
+E14001366,Mid Sussex,Liberal Democrat,LD,21136,0.39634
+E14001367,Middlesbrough and Thornaby East,Labour,Lab,16238,0.471939
+E14001368,Middlesbrough South and East Cleveland,Labour,Lab,16468,0.43297
+E14001369,Milton Keynes Central,Labour,Lab,20209,0.423411
+E14001370,Milton Keynes North,Labour,Lab,19318,0.420167
+E14001371,Mitcham and Morden,Labour,Lab,25085,0.554303
+E14001372,Morecambe and Lunesdale,Labour,Lab,19603,0.407894
+E14001373,New Forest East,Conservative,Con,17412,0.384966
+E14001374,New Forest West,Conservative,Con,16412,0.354188
+E14001375,Newark,Conservative,Con,20968,0.392226
+E14001376,Newbury,Liberal Democrat,LD,19645,0.401492
+E14001377,Newcastle upon Tyne Central and West,Labour,Lab,18875,0.456414
+E14001378,Newcastle upon Tyne East and Wallsend,Labour,Lab,21200,0.500933
+E14001379,Newcastle upon Tyne North,Labour,Lab,24440,0.502705
+E14001380,Newcastle-under-Lyme,Labour,Lab,15992,0.403655
+E14001381,Newton Abbot,Liberal Democrat,LD,15201,0.31674
+E14001382,Newton Aycliffe and Spennymoor,Labour,Lab,18394,0.461627
+E14001383,Normanton and Hemsworth,Labour,Lab,17275,0.475254
+E14001384,North Bedfordshire,Conservative,Con,19981,0.387522
+E14001385,North Cornwall,Liberal Democrat,LD,24094,0.470173
+E14001386,North Cotswolds,Conservative,Con,17426,0.346931
+E14001387,North Devon,Liberal Democrat,LD,21820,0.424373
+E14001388,North Dorset,Conservative,Con,18208,0.366484
+E14001389,North Durham,Labour,Lab,16562,0.39846
+E14001390,North East Cambridgeshire,Conservative,Con,16246,0.414693
+E14001391,North East Derbyshire,Labour,Lab,17591,0.38353
+E14001392,North East Hampshire,Liberal Democrat,LD,21178,0.381174
+E14001393,North East Hertfordshire,Labour,Lab,18358,0.349543
+E14001394,North East Somerset and Hanham,Labour,Lab,20739,0.405653
+E14001395,North Herefordshire,Green,Green,21736,0.431595
+E14001396,North Norfolk,Liberal Democrat,LD,19488,0.414259
+E14001397,North Northumberland,Labour,Lab,17855,0.365559
+E14001398,North Shropshire,Liberal Democrat,LD,26214,0.528572
+E14001399,North Somerset,Labour,Lab,19138,0.35595
+E14001400,North Warwickshire and Bedworth,Labour,Lab,14727,0.359722
+E14001401,North West Cambridgeshire,Labour,Lab,14785,0.332816
+E14001402,North West Essex,Conservative,Con,19360,0.355974
+E14001403,North West Hampshire,Conservative,Con,17770,0.349645
+E14001404,North West Leicestershire,Labour,Lab,16871,0.34734
+E14001405,North West Norfolk,Conservative,Con,16097,0.361195
+E14001406,Northampton North,Labour,Lab,18209,0.435487
+E14001407,Northampton South,Labour,Lab,16890,0.384703
+E14001408,Norwich North,Labour and Co-operative,Lab,20794,0.454365
+E14001409,Norwich South,Labour,Lab,21484,0.476416
+E14001410,Nottingham East,Labour,Lab,19494,0.535535
+E14001411,Nottingham North and Kimberley,Labour and Co-operative,Lab,16480,0.470763
+E14001412,Nottingham South,Labour,Lab,15579,0.473828
+E14001413,Nuneaton,Labour,Lab,15216,0.369204
+E14001414,Old Bexley and Sidcup,Conservative,Con,17910,0.376
+E14001415,Oldham East and Saddleworth,Labour,Lab,14091,0.351703
+E14001416,"Oldham West, Chadderton and Royton",Labour and Co-operative,Lab,13232,0.343038
+E14001417,Orpington,Conservative,Con,17504,0.379919
+E14001418,Ossett and Denby Dale,Labour,Lab,17232,0.39277
+E14001419,Oxford East,Labour and Co-operative,Lab,19541,0.496708
+E14001420,Oxford West and Abingdon,Liberal Democrat,LD,23414,0.509022
+E14001421,Peckham,Labour and Co-operative,Lab,22813,0.588009
+E14001422,Pendle and Clitheroe,Labour,Lab,16129,0.344976
+E14001423,Penistone and Stocksbridge,Labour,Lab,19169,0.436006
+E14001424,Penrith and Solway,Labour,Lab,19986,0.405552
+E14001425,Peterborough,Labour and Co-operative,Lab,13418,0.320453
+E14001426,Plymouth Moor View,Labour,Lab,17665,0.412194
+E14001427,Plymouth Sutton and Devonport,Labour and Co-operative,Lab,20795,0.494002
+E14001428,"Pontefract, Castleford and Knottingley",Labour,Lab,17089,0.475262
+E14001429,Poole,Labour,Lab,14168,0.318418
+E14001430,Poplar and Limehouse,Labour,Lab,18535,0.430536
+E14001431,Portsmouth North,Labour,Lab,14495,0.348496
+E14001432,Portsmouth South,Labour,Lab,18857,0.484407
+E14001433,Preston,Labour and Co-operative,Lab,14006,0.350211
+E14001434,Putney,Labour,Lab,24113,0.489157
+E14001435,Queen's Park and Maida Vale,Labour,Lab,20126,0.524894
+E14001436,Rawmarsh and Conisbrough,Labour,Lab,16612,0.489972
+E14001437,Rayleigh and Wickford,Conservative,Con,17756,0.370086
+E14001438,Reading Central,Labour,Lab,21598,0.476872
+E14001439,Reading West and Mid Berkshire,Labour,Lab,16273,0.349574
+E14001440,Redcar,Labour and Co-operative,Lab,15663,0.40993
+E14001441,Redditch,Labour,Lab,14810,0.349499
+E14001442,Reigate,Conservative,Con,18822,0.354057
+E14001443,Ribble Valley,Labour,Lab,18177,0.349403
+E14001444,Richmond and Northallerton,Conservative,Con,23059,0.475189
+E14001445,Richmond Park,Liberal Democrat,LD,28528,0.546461
+E14001446,Rochdale,Labour and Co-operative,Lab,13027,0.328235
+E14001447,Rochester and Strood,Labour,Lab,15403,0.36159
+E14001448,Romford,Conservative,Con,15339,0.348242
+E14001449,Romsey and Southampton North,Conservative,Con,19893,0.397645
+E14001450,Rossendale and Darwen,Labour,Lab,18247,0.408961
+E14001451,Rother Valley,Labour,Lab,16023,0.385094
+E14001452,Rotherham,Labour,Lab,16671,0.451397
+E14001453,Rugby,Labour,Lab,19533,0.3986
+E14001454,"Ruislip, Northwood and Pinner",Conservative,Con,21366,0.453717
+E14001455,Runcorn and Helsby,Labour,Lab,22358,0.529371
+E14001456,Runnymede and Weybridge,Conservative,Con,18442,0.382194
+E14001457,Rushcliffe,Labour,Lab,25291,0.437985
+E14001458,Rutland and Stamford,Conservative,Con,21248,0.437409
+E14001459,Salford,Labour,Lab,21132,0.532239
+E14001460,Salisbury,Conservative,Con,17110,0.34102
+E14001461,Scarborough and Whitby,Labour,Lab,17758,0.401574
+E14001462,Scunthorpe,Labour,Lab,15484,0.396507
+E14001463,Sefton Central,Labour,Lab,26772,0.564227
+E14001464,Selby,Labour,Lab,22788,0.462964
+E14001465,Sevenoaks,Conservative,Con,18328,0.367302
+E14001466,Sheffield Brightside and Hillsborough,Labour,Lab,16301,0.515659
+E14001467,Sheffield Central,Labour,Lab,16569,0.520989
+E14001468,Sheffield Hallam,Labour,Lab,23875,0.462685
+E14001469,Sheffield Heeley,Labour,Lab,21230,0.552203
+E14001470,Sheffield South East,Labour,Lab,18710,0.523049
+E14001471,Sherwood Forest,Labour,Lab,18841,0.387197
+E14001472,Shipley,Labour,Lab,21738,0.450034
+E14001473,Shrewsbury,Labour,Lab,22932,0.444763
+E14001474,Sittingbourne and Sheppey,Labour,Lab,11919,0.290721
+E14001475,Skipton and Ripon,Conservative,Con,18833,0.352348
+E14001476,Sleaford and North Hykeham,Conservative,Con,17348,0.357212
+E14001477,Slough,Labour,Lab,14666,0.338879
+E14001478,Smethwick,Labour,Lab,16858,0.48008
+E14001479,Solihull West and Shirley,Conservative,Con,16284,0.347377
+E14001480,South Basildon and East Thurrock,Reform UK,RUK,12178,0.307922
+E14001481,South Cambridgeshire,Liberal Democrat,LD,25704,0.468325
+E14001482,South Cotswolds,Liberal Democrat,LD,22961,0.439134
+E14001483,South Derbyshire,Labour,Lab,17734,0.387739
+E14001484,South Devon,Liberal Democrat,LD,22540,0.459962
+E14001485,South Dorset,Labour,Lab,15659,0.31933
+E14001486,South East Cornwall,Labour,Lab,15670,0.31794
+E14001487,South Holland and The Deepings,Conservative,Con,17462,0.380187
+E14001488,South Leicestershire,Conservative,Con,18264,0.355614
+E14001489,South Norfolk,Labour,Lab,17353,0.350007
+E14001490,South Northamptonshire,Conservative,Con,19191,0.357394
+E14001491,South Ribble,Labour,Lab,19840,0.424658
+E14001492,South Shields,Labour,Lab,15122,0.410656
+E14001493,South Shropshire,Conservative,Con,17628,0.341277
+E14001494,South Suffolk,Conservative,Con,16082,0.329542
+E14001495,South West Devon,Conservative,Con,17916,0.342942
+E14001496,South West Hertfordshire,Conservative,Con,16458,0.34107
+E14001497,South West Norfolk,Labour,Lab,11847,0.267216
+E14001498,South West Wiltshire,Conservative,Con,15617,0.338265
+E14001499,Southampton Itchen,Labour,Lab,15782,0.414737
+E14001500,Southampton Test,Labour,Lab,15945,0.445329
+E14001501,Southend East and Rochford,Labour,Lab,15395,0.388214
+E14001502,Southend West and Leigh,Labour,Lab,16739,0.356392
+E14001503,Southgate and Wood Green,Labour,Lab,23337,0.510981
+E14001504,Southport,Labour,Lab,17252,0.382876
+E14001505,Spelthorne,Conservative,Con,14038,0.304077
+E14001506,Spen Valley,Labour,Lab,16076,0.391544
+E14001507,St Albans,Liberal Democrat,LD,29222,0.566164
+E14001508,St Austell and Newquay,Labour,Lab,15958,0.341479
+E14001509,St Helens North,Labour,Lab,21284,0.525868
+E14001510,St Helens South and Whiston,Labour,Lab,18919,0.49741
+E14001511,St Ives,Liberal Democrat,LD,25033,0.520372
+E14001512,St Neots and Mid Cambridgeshire,Liberal Democrat,LD,19517,0.369067
+E14001513,Stafford,Labour,Lab,18531,0.402769
+E14001514,Staffordshire Moorlands,Conservative,Con,15310,0.353563
+E14001515,Stalybridge and Hyde,Labour and Co-operative,Lab,16320,0.43825
+E14001516,Stevenage,Labour,Lab,17698,0.414328
+E14001517,Stockport,Labour,Lab,21787,0.498752
+E14001518,Stockton North,Labour,Lab,17128,0.457956
+E14001519,Stockton West,Conservative,Con,20372,0.418849
+E14001520,Stoke-on-Trent Central,Labour and Co-operative,Lab,14950,0.423645
+E14001521,Stoke-on-Trent North,Labour,Lab,14579,0.403292
+E14001522,Stoke-on-Trent South,Labour,Lab,14221,0.347345
+E14001523,"Stone, Great Wyrley and Penkridge",Conservative,Con,19880,0.464812
+E14001524,Stourbridge,Labour,Lab,15338,0.384623
+E14001525,Stratford and Bow,Labour,Lab,19145,0.440774
+E14001526,Stratford-on-Avon,Liberal Democrat,LD,23450,0.442795
+E14001527,Streatham and Croydon North,Labour and Co-operative,Lab,23232,0.521446
+E14001528,Stretford and Urmston,Labour,Lab,22642,0.492196
+E14001529,Stroud,Labour,Lab,25607,0.463719
+E14001530,Suffolk Coastal,Labour,Lab,15672,0.31692
+E14001531,Sunderland Central,Labour,Lab,16852,0.421753
+E14001532,Surrey Heath,Liberal Democrat,LD,21387,0.447539
+E14001533,Sussex Weald,Conservative,Con,16758,0.340783
+E14001534,Sutton and Cheam,Liberal Democrat,LD,17576,0.369197
+E14001535,Sutton Coldfield,Conservative,Con,18502,0.382803
+E14001536,Swindon North,Labour,Lab,17930,0.405978
+E14001537,Swindon South,Labour,Lab,21676,0.483904
+E14001538,Tamworth,Labour,Lab,15338,0.350279
+E14001539,Tatton,Conservative,Con,19956,0.384442
+E14001540,Taunton and Wellington,Liberal Democrat,LD,24331,0.483775
+E14001541,Telford,Labour,Lab,18212,0.44714
+E14001542,Tewkesbury,Liberal Democrat,LD,20730,0.427079
+E14001543,The Wrekin,Conservative,Con,16320,0.326269
+E14001544,Thirsk and Malton,Conservative,Con,19544,0.392473
+E14001545,Thornbury and Yate,Liberal Democrat,LD,20815,0.390035
+E14001546,Thurrock,Labour,Lab,16050,0.427339
+E14001547,Tipton and Wednesbury,Labour,Lab,11755,0.369074
+E14001548,Tiverton and Minehead,Liberal Democrat,LD,18326,0.385884
+E14001549,Tonbridge,Conservative,Con,20517,0.407666
+E14001550,Tooting,Labour,Lab,29209,0.551707
+E14001551,Torbay,Liberal Democrat,LD,18937,0.410647
+E14001552,Torridge and Tavistock,Conservative,Con,16049,0.315801
+E14001553,Tottenham,Labour,Lab,23066,0.574524
+E14001554,Truro and Falmouth,Labour and Co-operative,Lab,20783,0.413477
+E14001555,Tunbridge Wells,Liberal Democrat,LD,23661,0.436147
+E14001556,Twickenham,Liberal Democrat,LD,30185,0.562785
+E14001557,Tynemouth,Labour,Lab,24491,0.505824
+E14001558,Uxbridge and South Ruislip,Labour,Lab,16599,0.361524
+E14001559,Vauxhall and Camberwell Green,Labour and Co-operative,Lab,21528,0.573529
+E14001560,Wakefield and Rothwell,Labour and Co-operative,Lab,17773,0.437156
+E14001561,Wallasey,Labour,Lab,24674,0.577224
+E14001562,Walsall and Bloxwich,Labour,Lab,12514,0.336479
+E14001563,Walthamstow,Labour and Co-operative,Lab,27172,0.59499
+E14001564,Warrington North,Labour,Lab,18730,0.467771
+E14001565,Warrington South,Labour and Co-operative,Lab,23201,0.467084
+E14001566,Warwick and Leamington,Labour,Lab,23975,0.487317
+E14001567,Washington and Gateshead South,Labour,Lab,17682,0.477621
+E14001568,Watford,Labour,Lab,15708,0.353346
+E14001569,Waveney Valley,Green,Green,20467,0.417081
+E14001570,Weald of Kent,Conservative,Con,20202,0.398367
+E14001571,Wellingborough and Rushden,Labour,Lab,17734,0.403183
+E14001572,Wells and Mendip Hills,Liberal Democrat,LD,23622,0.468988
+E14001573,Welwyn Hatfield,Labour,Lab,19877,0.410216
+E14001574,West Bromwich,Labour,Lab,16872,0.462487
+E14001575,West Dorset,Liberal Democrat,LD,26999,0.51324
+E14001576,West Ham and Beckton,Labour,Lab,16434,0.452129
+E14001577,West Lancashire,Labour,Lab,22305,0.504638
+E14001578,West Suffolk,Conservative,Con,15814,0.342584
+E14001579,West Worcestershire,Conservative,Con,19783,0.36175
+E14001580,Westmorland and Lonsdale,Liberal Democrat,LD,31061,0.627077
+E14001581,Weston-super-Mare,Labour,Lab,16310,0.384761
+E14001582,Wetherby and Easingwold,Conservative,Con,20597,0.394133
+E14001583,Whitehaven and Workington,Labour,Lab,22173,0.529947
+E14001584,Widnes and Halewood,Labour,Lab,23484,0.616119
+E14001585,Wigan,Labour,Lab,19401,0.474364
+E14001586,Wimbledon,Liberal Democrat,LD,24790,0.45085
+E14001587,Winchester,Liberal Democrat,LD,29939,0.524546
+E14001588,Windsor,Conservative,Con,16483,0.364297
+E14001589,Wirral West,Labour,Lab,23156,0.463574
+E14001590,Witham,Conservative,Con,18827,0.372053
+E14001591,Witney,Liberal Democrat,LD,20832,0.41183
+E14001592,Woking,Liberal Democrat,LD,24019,0.498889
+E14001593,Wokingham,Liberal Democrat,LD,25743,0.476731
+E14001594,Wolverhampton North East,Labour,Lab,14282,0.429031
+E14001595,Wolverhampton South East,Labour,Lab,16800,0.503265
+E14001596,Wolverhampton West,Labour,Lab,19331,0.442793
+E14001597,Worcester,Labour,Lab,18622,0.40451
+E14001598,Worsley and Eccles,Labour,Lab,20277,0.476624
+E14001599,Worthing West,Labour,Lab,20519,0.402357
+E14001600,Wycombe,Labour,Lab,16035,0.359231
+E14001601,Wyre Forest,Conservative,Con,14489,0.320851
+E14001602,Wythenshawe and Sale East,Labour,Lab,20596,0.526321
+E14001603,Yeovil,Liberal Democrat,LD,23765,0.485476
+E14001604,York Central,Labour and Co-operative,Lab,24537,0.566374
+E14001605,York Outer,Labour,Lab,23161,0.453195
+N05000001,Belfast East,Democratic Unionist Party,DUP,19894,0.465836
+N05000002,Belfast North,Sinn Fein,SF,17674,0.436913
+N05000003,Belfast South and Mid Down,Social Democratic and Labour Party,SDLP,21345,0.490791
+N05000004,Belfast West,Sinn Fein,SF,21009,0.528621
+N05000005,East Antrim,Democratic Unionist Party,DUP,11462,0.288897
+N05000006,East Londonderry,Democratic Unionist Party,DUP,11506,0.278751
+N05000007,Fermanagh and South Tyrone,Sinn Fein,SF,24844,0.486412
+N05000008,Foyle,Social Democratic and Labour Party,SDLP,15647,0.40792
+N05000009,Lagan Valley,Alliance,APNI,18618,0.379332
+N05000010,Mid Ulster,Sinn Fein,SF,24085,0.529981
+N05000011,Newry and Armagh,Sinn Fein,SF,22299,0.485373
+N05000012,North Antrim,Traditional Unionist Voice,TUV,11642,0.282676
+N05000013,North Down,Independent,Ind,20913,0.483024
+N05000014,South Antrim,Ulster Unionist Party,UUP,16311,0.380139
+N05000015,South Down,Sinn Fein,SF,19698,0.435382
+N05000016,Strangford,Democratic Unionist Party,DUP,15559,0.399882
+N05000017,Upper Bann,Democratic Unionist Party,DUP,21642,0.456987
+N05000018,West Tyrone,Sinn Fein,SF,22711,0.519762
+S14000021,East Renfrewshire,Labour,Lab,21935,0.436717
+S14000027,Na h-Eileanan an Iar,Labour,Lab,6692,0.494678
+S14000045,Midlothian,Labour and Co-operative,Lab,21480,0.486358
+S14000048,North Ayrshire and Arran,Labour,Lab,16821,0.398017
+S14000051,Orkney and Shetland,Liberal Democrat,LD,11392,0.550657
+S14000060,Aberdeen North,Scottish National Party,SNP,14533,0.345243
+S14000061,Aberdeen South,Scottish National Party,SNP,15213,0.328255
+S14000062,Aberdeenshire North and Moray East,Scottish National Party,SNP,13455,0.352336
+S14000063,Airdrie and Shotts,Labour,Lab,18871,0.514673
+S14000064,Alloa and Grangemouth,Labour,Lab,18039,0.437829
+S14000065,Angus and Perthshire Glens,Scottish National Party,SNP,19142,0.404283
+S14000066,Arbroath and Broughty Ferry,Scottish National Party,SNP,15581,0.353175
+S14000067,"Argyll, Bute and South Lochaber",Scottish National Party,SNP,15582,0.347332
+S14000068,Bathgate and Linlithgow,Labour and Co-operative,Lab,19774,0.470082
+S14000069,"Caithness, Sutherland and Easter Ross",Liberal Democrat,LD,22736,0.493746
+S14000070,Coatbridge and Bellshill,Labour,Lab,19291,0.498076
+S14000071,Cowdenbeath and Kirkcaldy,Labour,Lab,18662,0.457245
+S14000072,Cumbernauld and Kirkintilloch,Labour,Lab,18513,0.451801
+S14000073,Dumfries and Galloway,Conservative,Con,13527,0.295511
+S14000074,"Dumfriesshire, Clydesdale and Tweeddale",Conservative,Con,14999,0.339236
+S14000075,Dundee Central,Scottish National Party,SNP,15544,0.400124
+S14000076,Dunfermline and Dollar,Labour,Lab,20336,0.456609
+S14000077,East Kilbride and Strathaven,Labour,Lab,22682,0.485623
+S14000078,Edinburgh East and Musselburgh,Labour,Lab,18790,0.412287
+S14000079,Edinburgh North and Leith,Labour,Lab,20805,0.42051500000000003
+S14000080,Edinburgh South,Labour,Lab,24976,0.533379
+S14000081,Edinburgh South West,Labour,Lab,18663,0.408703
+S14000082,Edinburgh West,Liberal Democrat,LD,26645,0.507804
+S14000083,Falkirk,Labour,Lab,18343,0.430334
+S14000084,Glasgow East,Labour,Lab,15543,0.43851
+S14000085,Glasgow North,Labour,Lab,14655,0.42186
+S14000086,Glasgow North East,Labour,Lab,15639,0.458743
+S14000087,Glasgow South,Labour,Lab,17696,0.417575
+S14000088,Glasgow South West,Labour,Lab,15552,0.436009
+S14000089,Glasgow West,Labour,Lab,18621,0.466668
+S14000090,Glenrothes and Mid Fife,Labour,Lab,15994,0.442569
+S14000091,Gordon and Buchan,Conservative,Con,14418,0.328818
+S14000092,Hamilton and Clyde Valley,Labour,Lab,21020,0.499477
+S14000093,Inverclyde and Renfrewshire West,Labour,Lab,18931,0.46917
+S14000094,"Inverness, Skye and West Ross-shire",Liberal Democrat,LD,18159,0.377872
+S14000095,Livingston,Labour,Lab,18324,0.408653
+S14000096,Lothian East,Labour and Co-operative,Lab,23555,0.489689
+S14000097,Mid Dunbartonshire,Liberal Democrat,LD,22349,0.423774
+S14000098,"Moray West, Nairn and Strathspey",Scottish National Party,SNP,14961,0.321369
+S14000099,"Motherwell, Wishaw and Carluke",Labour,Lab,19168,0.49116
+S14000100,North East Fife,Liberal Democrat,LD,23384,0.547276
+S14000101,Paisley and Renfrewshire North,Labour,Lab,19561,0.471134
+S14000102,Paisley and Renfrewshire South,Labour,Lab,19583,0.47436
+S14000103,Perth and Kinross-shire,Scottish National Party,SNP,18928,0.377978
+S14000104,Rutherglen,Labour,Lab,21460,0.505131
+S14000105,Stirling and Strathallan,Labour,Lab,16856,0.338596
+S14000106,West Dunbartonshire,Labour,Lab,19312,0.487874
+S14000107,"Ayr, Carrick and Cumnock",Labour,Lab,14930,0.364716
+S14000108,"Berwickshire, Roxburgh and Selkirk",Conservative,Con,18872,0.405344
+S14000109,Central Ayrshire,Labour,Lab,18091,0.43678
+S14000110,Kilmarnock and Loudoun,Labour,Lab,19055,0.448585
+S14000111,West Aberdeenshire and Kincardine,Conservative,Con,17428,0.355979
+W07000081,Aberafan Maesteg,Labour,Lab,17838,0.498895
+W07000082,Alyn and Deeside,Labour,Lab,18395,0.423926
+W07000083,Bangor Aberconwy,Labour,Lab,14008,0.336246
+W07000084,Blaenau Gwent and Rhymney,Labour,Lab,16027,0.535626
+W07000085,"Brecon, Radnor and Cwm Tawe",Liberal Democrat,LD,13736,0.295093
+W07000086,Bridgend,Labour,Lab,16516,0.399188
+W07000087,Caerfyrddin,Plaid Cymru,PC,15520,0.340321
+W07000088,Caerphilly,Labour and Co-operative,Lab,14538,0.380237
+W07000089,Cardiff East,Labour,Lab,15833,0.404698
+W07000090,Cardiff North,Labour,Lab,20849,0.439176
+W07000091,Cardiff South and Penarth,Labour and Co-operative,Lab,17428,0.444864
+W07000092,Cardiff West,Labour,Lab,16442,0.367362
+W07000093,Ceredigion Preseli,Plaid Cymru,PC,21738,0.469483
+W07000094,Clwyd East,Labour,Lab,18484,0.386517
+W07000095,Clwyd North,Labour,Lab,14794,0.355394
+W07000096,Dwyfor Meirionnydd,Plaid Cymru,PC,21788,0.539374
+W07000097,Gower,Labour,Lab,20480,0.433632
+W07000098,Llanelli,Labour,Lab,12751,0.312954
+W07000099,Merthyr Tydfil and Aberdare,Labour,Lab,15791,0.448417
+W07000100,Mid and South Pembrokeshire,Labour,Lab,16505,0.353964
+W07000101,Monmouthshire,Labour,Lab,21010,0.413225
+W07000102,Montgomeryshire and Glyndŵr,Labour,Lab,12709,0.293789
+W07000103,Neath and Swansea East,Labour,Lab,16797,0.418492
+W07000104,Newport East,Labour,Lab,16370,0.424853
+W07000105,Newport West and Islwyn,Labour,Lab,17409,0.414984
+W07000106,Pontypridd,Labour,Lab,16225,0.412032
+W07000107,Rhondda and Ogmore,Labour,Lab,17118,0.478076
+W07000108,Swansea West,Labour,Lab,14761,0.413972
+W07000109,Torfaen,Labour,Lab,15176,0.425039
+W07000110,Vale of Glamorgan,Labour,Lab,17740,0.387116
+W07000111,Wrexham,Labour,Lab,15836,0.392242
+W07000112,Ynys Môn,Plaid Cymru,PC,10590,0.324568

@@ -1,0 +1,332 @@
+---
+title: "Project 3: Managing Social Media Data with Databases"
+subtitle: "Using SQLite and SQL to Store, Query, and Join Congress Facebook Data"
+author: "Zhao Zhanyu"
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Project Overview
+
+This project demonstrates how to use R, SQLite, and SQL to store, manage, query, and join a large social media dataset. The dataset contains Facebook posts from members of the U.S. Congress in 2017. The workflow stores account-level metadata and post-level Facebook data in a local SQLite database, then uses SQL queries and joins to prepare the data for communication analysis.
+
+0. Setup
+
+```{r}
+required_packages <- c("tidyverse", "DBI", "RSQLite", "janitor", "scales")
+
+for (pkg in required_packages) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    install.packages(pkg)
+  }
+}
+
+library(tidyverse)
+library(DBI)
+library(RSQLite)
+library(janitor)
+library(scales)
+```
+
+```{r}
+current_file <- knitr::current_input()
+wdir <- if (!is.null(current_file)) dirname(normalizePath(current_file)) else getwd()
+
+ddir <- file.path(wdir, "data")
+outdir <- file.path(wdir, "outputs/project3-social-media-database")
+
+dir.create(ddir, recursive = TRUE, showWarnings = FALSE)
+dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
+
+zip_candidates <- c(
+  file.path(ddir, "facebook-data.zip"),
+  file.path(wdir, "facebook-data.zip")
+)
+
+fb_zip <- zip_candidates[file.exists(zip_candidates)][1]
+
+fb_dir <- file.path(ddir, "facebook-data")
+
+# The zip file may extract files directly into fb_dir, or into a nested facebook-data folder.
+if (!file.exists(file.path(fb_dir, "congress-facebook-2017.csv")) &&
+    file.exists(file.path(fb_dir, "facebook-data", "congress-facebook-2017.csv"))) {
+  fb_dir <- file.path(fb_dir, "facebook-data")
+}
+
+congress_file <- file.path(fb_dir, "congress-facebook-2017.csv")
+posts_dir <- file.path(fb_dir, "posts")
+```
+
+1. Create a SQLite Database
+
+```{r}
+db_path <- file.path(outdir, "facebook-db.sqlite")
+
+if (file.exists(db_path)) {
+  file.remove(db_path)
+}
+
+#Create and connect to the SQLite database.
+db <- dbConnect(RSQLite::SQLite(), db_path)
+```
+
+2. Add Congress Metadata Table
+
+```{r}
+congress <- read_csv(congress_file, show_col_types = FALSE) |>
+  clean_names()
+
+dbWriteTable(db, "congress", congress, overwrite = TRUE)
+
+dbListFields(db, "congress")
+
+tibble(field = dbListFields(db, "congress")) |>
+  write_csv(file.path(outdir, "congress_table_fields.csv"))
+```
+
+3. Add Facebook Post Data Table
+
+```{r}
+post_files <- list.files(posts_dir, pattern = "\\.csv$", full.names = TRUE)
+
+length(post_files)
+
+# Read each post file and append it to the posts table.
+# All columns are read as character first, which is safer for large social media files.
+for (f in post_files) {
+  post_data <- read_csv(
+    f,
+    show_col_types = FALSE,
+    locale = locale(encoding = "latin1"),
+    col_types = cols(.default = col_character())
+  ) |>
+    clean_names()
+  
+  dbWriteTable(db, "posts", post_data, append = TRUE)
+  
+  rm(post_data)
+}
+
+# Check table fields.
+dbListFields(db, "posts")
+
+tibble(field = dbListFields(db, "posts")) |>
+  write_csv(file.path(outdir, "posts_table_fields.csv"))
+```
+
+4. Check Database Tables
+
+```{r}
+dbListTables(db)
+
+# Count rows in each table.
+table_counts <- tibble(
+  table = c("congress", "posts"),
+  rows = c(
+    dbGetQuery(db, "SELECT COUNT(*) AS n FROM congress")$n,
+    dbGetQuery(db, "SELECT COUNT(*) AS n FROM posts")$n
+  )
+)
+
+table_counts
+
+write_csv(table_counts, file.path(outdir, "database_table_counts.csv"))
+```
+
+5. Basic SQL Queries
+
+```{r}
+congress_head <- dbGetQuery(db, "
+  SELECT *
+  FROM congress
+  LIMIT 10
+")
+
+congress_head
+
+write_csv(congress_head, file.path(outdir, "congress_head.csv"))
+```
+
+```{r}
+# Select only selected columns.
+congress_name_party <- dbGetQuery(db, "
+  SELECT name, party, type, screen_name
+  FROM congress
+  LIMIT 20
+")
+
+congress_name_party
+
+write_csv(congress_name_party, file.path(outdir, "congress_name_party_sample.csv"))
+```
+
+```{r}
+republican_members <- dbGetQuery(db, "
+  SELECT name, party, type, screen_name
+  FROM congress
+  WHERE party = 'Republican'
+  LIMIT 20
+")
+
+republican_members
+
+write_csv(republican_members, file.path(outdir, "republican_members_sample.csv"))
+```
+
+6. Join Congress Metadata with Facebook Posts
+
+```{r}
+# Join the congress metadata table with the posts table using screen_name.
+# CAST() is used because post metrics were first read as character columns.
+joined_sample <- dbGetQuery(db, "
+  SELECT
+    c.name,
+    c.party,
+    c.type AS member_type,
+    p.screen_name,
+    p.date,
+    p.type AS post_type,
+    CAST(p.likes_count AS INTEGER) AS likes_count,
+    CAST(p.comments_count AS INTEGER) AS comments_count,
+    CAST(p.shares_count AS INTEGER) AS shares_count,
+    p.message
+  FROM posts AS p
+  INNER JOIN congress AS c
+    ON p.screen_name = c.screen_name
+  LIMIT 50
+")
+
+joined_sample
+
+write_csv(joined_sample, file.path(outdir, "joined_posts_congress_sample.csv"))
+```
+
+7. SQL Summary: Engagement by Party
+
+```{r}
+party_engagement <- dbGetQuery(db, "
+  SELECT
+    c.party,
+    COUNT(*) AS n_posts,
+    SUM(CAST(p.likes_count AS INTEGER)) AS total_likes,
+    ROUND(AVG(CAST(p.likes_count AS INTEGER)), 2) AS avg_likes,
+    SUM(CAST(p.comments_count AS INTEGER)) AS total_comments,
+    ROUND(AVG(CAST(p.comments_count AS INTEGER)), 2) AS avg_comments,
+    SUM(CAST(p.shares_count AS INTEGER)) AS total_shares,
+    ROUND(AVG(CAST(p.shares_count AS INTEGER)), 2) AS avg_shares
+  FROM posts AS p
+  INNER JOIN congress AS c
+    ON p.screen_name = c.screen_name
+  GROUP BY c.party
+  ORDER BY n_posts DESC
+")
+
+party_engagement
+
+write_csv(party_engagement, file.path(outdir, "party_engagement_summary.csv"))
+```
+
+8. SQL Summary: Top Accounts by Total Likes
+
+```{r}
+top_accounts <- dbGetQuery(db, "
+  SELECT
+    c.name,
+    c.party,
+    c.type AS member_type,
+    p.screen_name,
+    COUNT(*) AS n_posts,
+    SUM(CAST(p.likes_count AS INTEGER)) AS total_likes,
+    ROUND(AVG(CAST(p.likes_count AS INTEGER)), 2) AS avg_likes,
+    SUM(CAST(p.comments_count AS INTEGER)) AS total_comments,
+    SUM(CAST(p.shares_count AS INTEGER)) AS total_shares
+  FROM posts AS p
+  INNER JOIN congress AS c
+    ON p.screen_name = c.screen_name
+  GROUP BY c.name, c.party, c.type, p.screen_name
+  ORDER BY total_likes DESC
+  LIMIT 20
+")
+
+top_accounts
+
+write_csv(top_accounts, file.path(outdir, "top_accounts_by_total_likes.csv"))
+```
+
+9. Check Unmatched Congress Accounts
+
+```{r}
+unmatched_congress <- dbGetQuery(db, "
+  SELECT DISTINCT
+    c.screen_name,
+    c.name,
+    c.party,
+    c.type
+  FROM congress AS c
+  LEFT JOIN posts AS p
+    ON c.screen_name = p.screen_name
+  WHERE p.screen_name IS NULL
+  ORDER BY c.party, c.name
+")
+
+unmatched_congress
+
+write_csv(unmatched_congress, file.path(outdir, "unmatched_congress_accounts.csv"))
+```
+
+10. Visualise SQL Outputs
+
+```{r}
+party_plot <- party_engagement |>
+  ggplot(aes(x = reorder(party, n_posts), y = n_posts)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Number of Facebook Posts by Party",
+    x = "Party",
+    y = "Number of posts"
+  ) +
+  theme_minimal()
+
+party_plot
+
+ggsave(
+  filename = file.path(outdir, "posts_by_party.png"),
+  plot = party_plot,
+  width = 8,
+  height = 5,
+  dpi = 300
+)
+```
+
+```{r}
+top_accounts_plot <- top_accounts |>
+  mutate(name = fct_reorder(name, total_likes)) |>
+  ggplot(aes(x = name, y = total_likes)) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Top 20 Congress Facebook Accounts by Total Likes",
+    x = "Account",
+    y = "Total likes"
+  ) +
+  theme_minimal()
+
+top_accounts_plot
+
+ggsave(
+  filename = file.path(outdir, "top_accounts_by_total_likes.png"),
+  plot = top_accounts_plot,
+  width = 9,
+  height = 6,
+  dpi = 300
+)
+```
+

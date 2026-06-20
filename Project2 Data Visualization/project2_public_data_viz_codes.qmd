@@ -1,0 +1,663 @@
+---
+title: "Project 2 Code: Public Data Visualisation and Mapping with R"
+subtitle: "LSE MY472 Portfolio Project"
+format:
+  html:
+    embed-resources: true
+    toc: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+Project 2 Code: Public Data Visualisation and Mapping with R
+
+This file contains the full source code for Project 2. The project uses the original Week 4 workflow and adds output-saving code for the portfolio.
+
+1. Set up
+
+```{r}
+required_packages <- c("tidyverse", "sf", "scales", "gridExtra")
+
+for (pkg in required_packages) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    install.packages(pkg)
+  }
+}
+
+library(tidyverse)
+library(sf)
+library(scales)
+library(gridExtra)
+```
+
+```{r}
+current_file <- knitr::current_input()
+wdir <- if (!is.null(current_file)) dirname(normalizePath(current_file)) else getwd()
+ddir <- file.path(wdir, "data")
+
+
+outdir <- file.path(wdir, "outputs/project2-public-data-viz")
+dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
+births.file <- file.path(ddir, "births_by_mothers_country_of_birth_2001_to_2024.csv")
+geom.file <- file.path(ddir, "statistical-gis-boundaries-london.zip")
+fb.file <- file.path(ddir, "fb-congress-data.csv")
+election.file <- file.path(ddir, "2024_uk_election_results.csv")
+const.file <- file.path(ddir, "mp_const.geojson")
+
+stopifnot(file.exists(births.file))
+stopifnot(file.exists(geom.file))
+stopifnot(file.exists(fb.file))
+stopifnot(file.exists(election.file))
+stopifnot(file.exists(const.file))
+```
+
+2. London births data visualisation
+
+2.1 Prepare London births and borough map data
+
+```{r}
+geom.dir <- file.path(ddir, "statistical-gis-boundaries-london")
+if (!dir.exists(geom.dir)) {
+  unzip(geom.file, exdir = ddir)
+}
+
+boro.file <- file.path(
+  ddir,
+  "statistical-gis-boundaries-london",
+  "ESRI",
+  "London_Borough_Excluding_MHW.shp"
+)
+
+stopifnot(file.exists(boro.file))
+
+bf <- read_csv(births.file, show_col_types = FALSE)
+gf <- read_sf(boro.file)
+
+colnames(bf)
+head(bf)
+head(gf)
+```
+
+2.2 Total live births in London over time
+
+```{r}
+#计算每一年 London borough的total births
+births_total_year <- bf |>
+  filter(type == "London Borough") |>
+  group_by(year) |>
+  summarise(total_births_london = sum(total_births_all), .groups = "drop")
+
+births_total_year
+
+write_csv(births_total_year, file.path(outdir, "births_total_by_year.csv"))
+```
+
+```{r}
+#live births柱状图
+p_births_total <- births_total_year |>
+  ggplot(aes(x = year, y = total_births_london)) +
+  geom_col(fill = "steelblue") +
+  scale_y_continuous(labels = label_comma()) +
+  labs(
+    title = "Total Live Births in London",
+    subtitle = "London boroughs, 2001 to 2024",
+    x = "Year",
+    y = "Total live births"
+  ) +
+  theme_minimal()
+
+p_births_total
+
+ggsave(
+  filename = file.path(outdir, "births_total_by_year.png"),
+  plot = p_births_total,
+  width = 9,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+2.3 UK-born and overseas-born mothers over time
+
+```{r}
+#按mother country of birth分组
+births_mother_origin <- bf |>
+  filter(type == "London Borough") |>
+  group_by(year) |>
+  summarise(
+    UK_born_mothers = sum(total_births_uk_mothers),
+    overseas_born_mothers = sum(total_births_overseas_mothers),
+    .groups = "drop"
+  ) |>
+  pivot_longer(
+    cols = c(UK_born_mothers, overseas_born_mothers),
+    names_to = "mother_origin",
+    values_to = "births"
+  ) |>
+  mutate(
+    mother_origin = recode(
+      mother_origin,
+      "UK_born_mothers" = "UK-born mothers",
+      "overseas_born_mothers" = "Overseas-born mothers"
+    )
+  )
+
+births_mother_origin
+
+write_csv(births_mother_origin, file.path(outdir, "births_by_mother_origin_year.csv"))
+```
+
+```{r}
+# UK-born and overseas-born mothers 趋势图
+p_births_origin_line <- births_mother_origin |>
+  ggplot(aes(x = year, y = births, colour = mother_origin, group = mother_origin)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 1.5) +
+  scale_y_continuous(labels = label_comma()) +
+  scale_x_continuous(breaks = seq(2001, 2024, 2)) +
+  labs(
+    title = "Live Births in London by Mother's Country of Birth",
+    subtitle = "UK-born and overseas-born mothers, 2001 to 2024",
+    x = "Year",
+    y = "Live births",
+    colour = "Mother's country of birth"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+p_births_origin_line
+
+ggsave(
+  filename = file.path(outdir, "births_mother_origin_line.png"),
+  plot = p_births_origin_line,
+  width = 9,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+```{r}
+# UK-born and overseas-born mothers 堆叠柱状图
+p_births_origin_bar <- births_mother_origin |>
+  mutate(year = factor(year)) |>
+  ggplot(aes(x = year, y = births, fill = mother_origin)) +
+  geom_col() +
+  scale_y_continuous(labels = label_comma()) +
+  labs(
+    title = "Live Births in London by Mother's Country of Birth",
+    subtitle = "Stacked bar chart, 2001 to 2024",
+    x = "Year",
+    y = "Live births",
+    fill = "Mother's country of birth"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+p_births_origin_bar
+
+ggsave(
+  filename = file.path(outdir, "births_mother_origin_bar.png"),
+  plot = p_births_origin_bar,
+  width = 10,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+2.4 London borough maps
+
+```{r}
+#合并 borough geometry 和 births 
+df_births_map <- gf |>
+  inner_join(bf, by = c("GSS_CODE" = "gss_code")) |>
+  mutate(prop_nonuk_mothers = total_births_overseas_mothers / total_births_all)
+
+#对比
+births_map_compare <- df_births_map |>
+  filter(year %in% c(2001, 2024))
+```
+
+```{r}
+# Total live births borough map
+p_births_map_total <- births_map_compare |>
+  ggplot() +
+  geom_sf(aes(fill = total_births_all), color = "black", linewidth = 0.15) +
+  scale_fill_gradient(
+    "Total live births",
+    low = "white",
+    high = "magenta4",
+    labels = label_comma()
+  ) +
+  labs(
+    title = "Total Live Births in London",
+    subtitle = "Borough-level comparison, 2001 and 2024"
+  ) +
+  facet_grid(cols = vars(year)) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5, size = 11),
+    strip.text = element_text(size = 12)
+  )
+
+p_births_map_total
+
+ggsave(
+  filename = file.path(outdir, "births_total_map_2001_2024.png"),
+  plot = p_births_map_total,
+  width = 10,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+```{r}
+# Proportion of births to overseas-born mothers borough map
+p_births_map_nonuk <- births_map_compare |>
+  ggplot() +
+  geom_sf(aes(fill = prop_nonuk_mothers), color = "black", linewidth = 0.15) +
+  scale_fill_gradient(
+    "Proportion of\noverseas-born mothers",
+    low = "white",
+    high = "darkgreen",
+    labels = label_percent()
+  ) +
+  labs(
+    title = "Proportion of Births to Overseas-born Mothers",
+    subtitle = "Borough-level comparison, 2001 and 2024"
+  ) +
+  facet_grid(cols = vars(year)) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5, size = 11),
+    strip.text = element_text(size = 12)
+  )
+
+p_births_map_nonuk
+
+ggsave(
+  filename = file.path(outdir, "births_overseas_mothers_map_2001_2024.png"),
+  plot = p_births_map_nonuk,
+  width = 10,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+3. Facebook engagement visualisation
+
+3.1 Prepare Facebook data
+
+```{r}
+
+fb <- read_csv(fb.file, show_col_types = FALSE)
+
+#清理数据
+fb_clean <- fb |>
+  filter(!post_type %in% c("music", "note")) |>
+  mutate(
+    date = as.Date(date),
+    gender = if_else(gender == "M", "Man", "Woman"),
+    type = if_else(type == "rep", "House", "Senate")
+  )
+
+#基本检查
+nrow(fb)
+nrow(fb_clean)
+head(fb_clean)
+
+write_csv(fb_clean, file.path(outdir, "facebook_posts_cleaned.csv"))
+```
+
+3.2 Summary statistics for likes
+
+```{r}
+# likes summary statistics
+fb_likes_summary <- fb_clean |>
+  summarise(
+    min_likes = min(likes_count, na.rm = TRUE),
+    mean_likes = mean(likes_count, na.rm = TRUE),
+    median_likes = median(likes_count, na.rm = TRUE),
+    max_likes = max(likes_count, na.rm = TRUE),
+    n_posts = n()
+  )
+
+fb_zero_likes <- fb_clean |>
+  mutate(zero_likes = if_else(likes_count == 0, 1, 0)) |>
+  summarise(zero_likes_percent = mean(zero_likes, na.rm = TRUE) * 100)
+
+fb_likes_summary
+fb_zero_likes
+
+write_csv(fb_likes_summary, file.path(outdir, "facebook_likes_summary.csv"))
+write_csv(fb_zero_likes, file.path(outdir, "facebook_zero_likes_percent.csv"))
+```
+
+3.3 Likes distribution
+
+```{r}
+p_fb_likes_hist <- fb_clean |>
+  filter(likes_count > 0) |>
+  ggplot(aes(x = likes_count)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  scale_x_log10("Number of likes", labels = comma) +
+  scale_y_continuous("Number of posts", labels = comma) +
+  labs(
+    title = "Distribution of Facebook Likes",
+    subtitle = "US Congress Facebook posts, log scale"
+  ) +
+  theme_minimal()
+
+p_fb_likes_hist
+
+ggsave(
+  filename = file.path(outdir, "facebook_likes_histogram_log.png"),
+  plot = p_fb_likes_hist,
+  width = 8,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+```{r}
+p_fb_likes_density_party <- fb_clean |>
+  filter(likes_count > 0, party != "Independent") |>
+  ggplot(aes(x = likes_count, colour = party)) +
+  geom_density() +
+  scale_x_log10("Number of likes", labels = comma) +
+  labs(
+    title = "Facebook Likes Distribution by Party",
+    subtitle = "Density plot on log scale",
+    colour = "Party"
+  ) +
+  theme_minimal()
+
+p_fb_likes_density_party
+
+ggsave(
+  filename = file.path(outdir, "facebook_likes_density_by_party.png"),
+  plot = p_fb_likes_density_party,
+  width = 8,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+3.4 Engagement relationship: likes and comments
+
+```{r}
+# Scatter plot of likes and comments
+p_fb_likes_comments <- fb_clean |>
+  filter(likes_count > 0, comments_count > 0) |>
+  ggplot(aes(x = likes_count, y = comments_count)) +
+  geom_point(alpha = 0.25) +
+  scale_x_log10("Likes count", labels = comma) +
+  scale_y_log10("Comments count", labels = comma) +
+  labs(
+    title = "Relationship between Facebook Likes and Comments",
+    subtitle = "Log scales used because engagement counts are skewed"
+  ) +
+  theme_minimal()
+
+p_fb_likes_comments
+
+ggsave(
+  filename = file.path(outdir, "facebook_likes_comments_scatter.png"),
+  plot = p_fb_likes_comments,
+  width = 8,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+```{r}
+# Likes and comments by post type
+p_fb_likes_comments_type <- fb_clean |>
+  filter(likes_count > 0, comments_count > 0) |>
+  ggplot(aes(x = likes_count, y = comments_count)) +
+  geom_point(alpha = 0.25) +
+  scale_x_log10("Likes count", labels = comma) +
+  scale_y_log10("Comments count", labels = comma) +
+  facet_wrap(~post_type, nrow = 2) +
+  labs(
+    title = "Likes and Comments by Post Type",
+    subtitle = "Facet plot by Facebook post type"
+  ) +
+  theme_minimal()
+
+p_fb_likes_comments_type
+
+ggsave(
+  filename = file.path(outdir, "facebook_likes_comments_by_post_type.png"),
+  plot = p_fb_likes_comments_type,
+  width = 10,
+  height = 6,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+3.5 Posts by party, gender, and post type
+
+```{r}
+# Monthly number of posts by party
+fb_monthly_party <- fb_clean |>
+  filter(party != "Independent") |>
+  group_by(month = ceiling_date(date, "month"), party) |>
+  summarise(posts = n(), .groups = "drop")
+
+write_csv(fb_monthly_party, file.path(outdir, "facebook_monthly_posts_by_party.csv"))
+```
+
+```{r}
+# Time series of monthly posts by party
+p_fb_monthly_party <- fb_monthly_party |>
+  ggplot(aes(x = month, y = posts, colour = party, group = party)) +
+  geom_line(linewidth = 1) +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Monthly Facebook Posts by Party",
+    x = "Month",
+    y = "Number of posts",
+    colour = "Party"
+  ) +
+  theme_minimal()
+
+p_fb_monthly_party
+
+ggsave(
+  filename = file.path(outdir, "facebook_monthly_posts_by_party.png"),
+  plot = p_fb_monthly_party,
+  width = 8,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+```{r}
+# Posts by post type and party
+fb_post_type_party <- fb_clean |>
+  filter(party != "Independent") |>
+  group_by(post_type, party) |>
+  summarise(posts = n(), .groups = "drop")
+
+write_csv(fb_post_type_party, file.path(outdir, "facebook_posts_by_type_party.csv"))
+
+p_fb_post_type_party <- fb_post_type_party |>
+  ggplot(aes(x = party, y = post_type, fill = posts)) +
+  geom_tile() +
+  scale_fill_gradient("Number of posts", low = "white", high = "darkblue", labels = comma) +
+  labs(
+    title = "Facebook Post Types by Party",
+    x = "Party",
+    y = "Post type"
+  ) +
+  theme_minimal()
+
+p_fb_post_type_party
+
+ggsave(
+  filename = file.path(outdir, "facebook_post_type_party_tile.png"),
+  plot = p_fb_post_type_party,
+  width = 7,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+```{r}
+# Summary grid: post type, gender, average likes
+p1 <- ggplot(fb_clean, aes(x = post_type)) +
+  geom_bar() +
+  scale_y_continuous("Number of posts", labels = comma) +
+  scale_x_discrete("Type of post") +
+  theme_minimal() +
+  theme(axis.ticks.x = element_blank())
+
+p2 <- ggplot(fb_clean, aes(x = gender)) +
+  geom_bar() +
+  scale_x_discrete("Gender of legislator") +
+  scale_y_continuous("Number of posts", labels = comma) +
+  theme_minimal()
+
+p3 <- ggplot(fb_clean, aes(x = post_type, y = likes_count)) +
+  stat_summary(fun = "mean", geom = "point", size = 4, shape = 15) +
+  scale_y_continuous("Average likes count", labels = comma) +
+  scale_x_discrete("Type of post") +
+  theme_minimal()
+
+p4 <- ggplot(fb_clean, aes(x = gender, y = likes_count)) +
+  stat_summary(fun = "mean", geom = "point", size = 4, shape = 15) +
+  scale_x_discrete("Gender of legislator") +
+  scale_y_continuous("Average likes count", labels = comma) +
+  theme_minimal()
+
+# Save grid plot
+png(file.path(outdir, "facebook_summary_grid.png"), width = 1800, height = 1400, res = 220)
+grid.arrange(arrangeGrob(p1, p2, p3, p4, ncol = 2))
+dev.off()
+```
+
+4. Optional extension: UK election results mapping
+
+This section uses the 2024 UK election results and parliamentary constituency boundaries to create a constituency-level map.
+
+```{r}
+election_results <- read_csv(election.file, show_col_types = FALSE)
+constituencies <- read_sf(const.file)
+
+# 每个constituency票数最高的候选人或者政党就是 winner
+election_winners <- election_results |>
+  rename(
+    ons_id = `ONS ID`,
+    constituency_name = `Constituency name`,
+    party_name = `Party name`,
+    party_abbr = `Party abbreviation`,
+    votes = Votes,
+    share = Share
+  ) |>
+  group_by(ons_id, constituency_name) |>
+  slice_max(order_by = votes, n = 1, with_ties = FALSE) |>
+  ungroup() |>
+  select(ons_id, constituency_name, party_name, party_abbr, votes, share)
+
+# 统计各党seats
+seat_summary <- election_winners |>
+  count(party_abbr, party_name, name = "seats") |>
+  arrange(desc(seats))
+
+seat_summary
+
+write_csv(election_winners, file.path(outdir, "uk_election_2024_winners.csv"))
+write_csv(seat_summary, file.path(outdir, "uk_election_2024_seat_summary.csv"))
+```
+
+```{r}
+#合并地图和 election winners
+election_map <- constituencies |>
+  inner_join(election_winners, by = c("PCON24CD" = "ons_id"))
+
+#只突出主要政党，其他放进 Other
+major_parties <- c("Lab", "Con", "LD", "SNP", "SF", "DUP", "RUK", "Green", "PC")
+
+election_map <- election_map |>
+  mutate(
+    party_group = if_else(party_abbr %in% major_parties, party_abbr, "Other")
+  )
+```
+
+```{r}
+#Winning party map
+p_election_winner_map <- election_map |>
+  ggplot() +
+  geom_sf(aes(fill = party_group), color = NA) +
+  labs(
+    title = "2024 UK General Election Results",
+    subtitle = "Winning party by constituency",
+    fill = "Winning party"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5, size = 11)
+  )
+
+p_election_winner_map
+
+ggsave(
+  filename = file.path(outdir, "uk_election_2024_winning_party_map.png"),
+  plot = p_election_winner_map,
+  width = 8,
+  height = 10,
+  dpi = 300,
+  bg = "white"
+)
+
+```
+
+```{r}
+# Seat summary bar chart
+p_election_seats <- seat_summary |>
+  mutate(party_abbr = reorder(party_abbr, seats)) |>
+  ggplot(aes(x = party_abbr, y = seats)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Seats Won by Party",
+    subtitle = "2024 UK General Election",
+    x = "Party",
+    y = "Number of seats"
+  ) +
+  theme_minimal()
+
+p_election_seats
+
+ggsave(
+  filename = file.path(outdir, "uk_election_2024_seats_by_party.png"),
+  plot = p_election_seats,
+  width = 8,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+5. Output list
+
+```{r}
+list.files(outdir)
+```
