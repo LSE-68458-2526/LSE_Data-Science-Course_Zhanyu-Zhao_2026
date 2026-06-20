@@ -3,8 +3,6 @@
 # Large generated or external data files
 **/data/glove.6B*.txt
 **/data/glove.6B*.zip
-**/outputs/**/*.sqlite
-**/outputs/**/*.sqlite-*
 
 # R / Quarto local state
 .Rhistory
